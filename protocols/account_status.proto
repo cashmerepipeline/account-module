@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package account_service;
+
+enum LoginStatus{
+  LoggedIn = 0;
+  LoggedOut = 1;
+  LogginFailed = 2;
+}
+
+enum AccountStatus{
+  AccountStopped = 0;
+  AccountActived = 1;
+}

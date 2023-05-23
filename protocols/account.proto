@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package account_service;
+
+import "name.proto";
+import "account_status.proto";
+
+// 添加账号, 需要手工添加账号的情景
+message NewAccountRequest {
+  string area_code = 1;
+  string phone = 2;
+  string password = 3;
+  cashmere.Name nick_name = 4;
+}
+message NewAccountResponse {
+  string result = 1;
+}
+
+// 注册账号, 用户需要自己注册账号的情景
+message RegisterRequest {
+  string organization_id = 1;
+  string department_id = 2;
+  string phone = 4;
+  string password = 5;
+}
+message RegisterResponse {
+  string result = 1;
+}
+
+// 自己修改手机号码
+message ChangeOwnPhoneRequest{
+  string old_phone = 1;
+  string new_phone = 2;
+  string password = 3;
+}
+message ChangePhoneOwnResponse{
+  string result = 1;
+}
+
+// 加入组
+message AddAccountIntoGroupRequest {
+  string account_id = 1;
+  string group_id = 2;
+}
+message AddAccountIntoGroupResponse {
+  string result = 1;
+}
+
+// 移出组
+message RemoveAccountFromGroupRequest {
+  string account_id = 1;
+  string group_id = 2;
+}
+message RemoveAccountFromGroupResponse {
+  string result = 1;
+}
+
+// 改变帐号状态
+message ChangeAccountStatusRequest {
+  string account_id = 1;
+  AccountStatus status = 2;
+}
+message ChangeAccountStatusResponse {
+  AccountStatus result = 1;
+}

@@ -1,0 +1,34 @@
+/*
+Author: 闫刚 (yes7rose@sina.com)
+account.proto (c) 2020
+Desc: 账号相关
+Created:  2020-09-24T00:20:32.607Z
+Modified: !date!
+*/
+
+syntax = "proto3";
+
+package account_service;
+
+import "login.proto";
+import "account.proto";
+import "password.proto";
+import "account_status.proto";
+
+service AccountGrpc{
+  // 登录
+  rpc Login (LoginRequest) returns (LoginResponse);
+  // rpc Logout (LogoutRequest) returns (LogoutResponse);
+  rpc NewAccount (NewAccountRequest) returns (NewAccountResponse);
+  // rpc Register (RegisterRequest) returns (RegisterResponse);
+
+  rpc AddAccountIntoGroup (AddAccountIntoGroupRequest) returns (AddAccountIntoGroupResponse);
+  rpc RemoveAccountFromGroup (RemoveAccountFromGroupRequest) returns (RemoveAccountFromGroupResponse);
+
+  // 修改自身密码
+  rpc ChangeOwnPassword (ChangeOwnPasswordRequest) returns (ChangeOwnPasswordResponse);
+  
+  // 修改帐号状态
+  rpc ChangeAccountStatus(ChangeAccountStatusRequest) returns (ChangeAccountStatusResponse);
+  rpc ChangeAccountPassword(ChangeAccountPasswordRequest) returns (ChangeAccountPasswordResponse);
+}

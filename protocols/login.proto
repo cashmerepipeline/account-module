@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package account_service;
+
+import "account_status.proto";
+
+// 使用手机号码 密码登录
+message LoginRequest {
+  string area_code = 1;
+  string phone = 2;
+  string password = 3;
+}
+
+message LoginResponse {
+  bytes person = 1;
+  string token = 2;
+}
+
+// 登出
+message LogoutRequest {
+}
+message LogoutResponse {
+  LoginStatus result = 1;
+}
+
+// 使用校验码登录
+message LoginWithValidCodeRequest {
+  string phone = 1;
+  string valid_code = 2;
+}
+message LoginWithValidCodeResponse {
+  string result = 1;
+}
+
+// 取得校验码
+message GetValidateCodeRequest {
+  string phone = 1;
+}
+message GetValidateCodeResponse {
+  string result = 1;
+}
