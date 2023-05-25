@@ -32,11 +32,10 @@ pub trait HandleLogin {
 
         let mut doc_op: Option<Document> = None;
         {
-            let majordomo_lock_arc = majordomo::get_majordomo().await;
+            let majordomo_lock_arc = majordomo::get_majordomo();
             let manager_arc = majordomo_lock_arc
                 // .read()
                 .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-                .await
                 .unwrap();
 
             let account_doc = manager_arc.get_entity_by_id(&account_id).await;

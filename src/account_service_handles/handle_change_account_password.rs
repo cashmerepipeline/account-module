@@ -46,10 +46,9 @@ pub trait HandleChangeAccountPassword {
             return Err(Status::unauthenticated(t!("用户不具有修改密码权限")));
         }
 
-        let majordomo_arc = get_majordomo().await;
+        let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
             .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .await
             .unwrap();
 
         // 帐号存在性检查
