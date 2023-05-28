@@ -35,14 +35,6 @@ pub trait HandleNewAccount {
         let nick_name = &request.get_ref().nick_name;
 
         let manage_id = ACCOUNTS_MANAGE_ID;
-        // 管理可写性
-        if !view::can_manage_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有可写权限"));
-        }
-        // 集合可写性检查
-        if !view::can_collection_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有集合可读权限"));
-        }
 
         let new_account_id = format!("{}{}", area_code, phone);
 

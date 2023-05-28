@@ -30,37 +30,6 @@ pub trait HandleAddAccountIntoGroup {
         let account_manage_id = ACCOUNTS_MANAGE_ID;
         let group_manage_id = GROUPS_MANAGE_ID;
 
-        // 管理可写性
-        if !view::can_manage_write(&account_id, &role_group, &account_manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有帐号可写权限"));
-        }
-        // 实际不写入到组中
-        if !view::can_manage_write(&account_id, &role_group, &group_manage_id.to_string()).await {
-            return Err(Status::unauthenticated("用户不具有组可写权限"));
-        }
-
-        // 集合可写性检查
-        if !view::can_collection_write(&account_id, &role_group, &account_manage_id.to_string())
-            .await
-        {
-            return Err(Status::unauthenticated("用户不具有集合可写权限"));
-        }
-        if !view::can_collection_write(&account_id, &role_group, &group_manage_id.to_string()).await
-        {
-            return Err(Status::unauthenticated("用户不具有集合可写权限"));
-        }
-        // 检查帐号组属性字段可写性
-        if !view::can_field_write(
-            &account_id,
-            &role_group,
-            &account_manage_id.to_string(),
-            &GROUPS_FIELD_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated("用户不具有字段可写权限"));
-        }
-
         let majordomo_arc = get_majordomo();
         let account_manager = majordomo_arc
             .get_manager_by_id(ACCOUNTS_MANAGE_ID)

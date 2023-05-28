@@ -32,21 +32,6 @@ pub trait HandleChangeOwnPassword {
         let new_password = &request.get_ref().new_password;
 
         let manage_id = ACCOUNTS_MANAGE_ID;
-        // 实体可写检查
-        if !view::can_entity_write(&account_id, &role_group, &manage_id.to_string()).await {
-            return Err(Status::unauthenticated(t!("用户不具有修改实体权限")));
-        }
-        // 字段可写检查
-        if !view::can_field_write(
-            &account_id,
-            &role_group,
-            &manage_id.to_string(),
-            &ACCOUNTS_PASSWORD_FIELD_ID.to_string(),
-        )
-        .await
-        {
-            return Err(Status::unauthenticated(t!("用户不具有修改密码权限")));
-        }
 
         let majordomo_arc = get_majordomo();
         let manager = majordomo_arc
