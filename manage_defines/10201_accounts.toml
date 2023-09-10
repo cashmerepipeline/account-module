@@ -14,6 +14,7 @@ schema = [
   # 20003
   { data_type = "String", name_map = { zh = "密码", en = "password" }, removed = false },
   # 20004
+  # 帐号是否有效等状态
   { data_type = "Bool", name_map = { zh = "状态", en = "status" }, removed = false },
   # 20005
   # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期

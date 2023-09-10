@@ -6,8 +6,8 @@ Created:  2021-11-27T14:00:58.767Z
 Modified: !date!
 */
 
-#[macro_use]
-extern crate rust_i18n;
+use dependencies_sync::once_cell;
+use dependencies_sync::rust_i18n::{self, i18n, t};
 i18n!("locales");
 
 mod account;

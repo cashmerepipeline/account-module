@@ -1,6 +1,7 @@
 use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::doc;
 use dependencies_sync::tonic::{Request, Response, Status};
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::log::{error, info};
 
 use majordomo::get_majordomo;

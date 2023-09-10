@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  jwt_decoder: ^2.0.1
+
   cashmere_core:
     path: ../../../cashmere_core/dart_packages/cashmere_core
 

@@ -2,6 +2,7 @@ use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson;
 use dependencies_sync::bson::doc;
 use dependencies_sync::log::{error, info};
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync:: tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
@@ -96,12 +97,14 @@ pub trait HandleNewAccount {
         match result {
             Ok(_r) => {
                 info!("{}: {}", t!("创建帐号成功"), new_account_id);
+
                 Ok(Response::new(NewAccountResponse {
                     result: new_account_id,
                 }))
             }
             Err(e) => {
-                error!("创建帐号发生错误--{}", new_account_id);
+                error!("{}--{}", t!("创建帐号发生错误"), new_account_id);
+
                 Err(Status::aborted(format!(
                     "{} {}",
                     e.operation(),
