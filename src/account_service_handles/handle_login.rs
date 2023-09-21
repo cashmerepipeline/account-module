@@ -2,18 +2,17 @@ use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson;
 use dependencies_sync::bson::{doc, Document};
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync::log::info;
+use dependencies_sync::log::{info, error};
 use dependencies_sync::chrono::Utc;
+use manage_define::manage_ids::PERSONS_MANAGE_ID;
 use tonic::{Request, Response, Status};
 
-use manage_define::field_ids::{PERSONS_DEPARTMENTS_FIELD_ID, PERSONS_ORGANIZATIONS_FIELD_ID};
-use manage_define::manage_ids::{PERSONS_MANAGE_ID};
 use managers::traits::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
-use crate::ids_codes::manage_ids::{ACCOUNTS_MANAGE_ID};
 use crate::account;
 use crate::account::{get_account_groups, get_account_login_timestamps, get_account_passwd_hash, update_account_login_timestamps};
+use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
 use crate::protocols::{LoginRequest, LoginResponse};
 
 #[async_trait]
@@ -72,20 +71,22 @@ pub trait HandleLogin {
             Err(_e) => doc! {}, 
         };
 
-        let orgnizations: Vec<String> = bson::from_bson(
-            person_doc
-                .get(PERSONS_ORGANIZATIONS_FIELD_ID.to_string().as_str())
-                .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
-                .clone(),
-        )
-        .unwrap();
-        let departments: Vec<String> = bson::from_bson(
-            person_doc
-                .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string())
-                .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
-                .clone(),
-        )
-        .unwrap();
+        let orgnizations: Vec<String> = vec![]; 
+        // let orgnizations: Vec<String> = bson::from_bson(
+        //     person_doc
+        //         .get(PERSONS_ORGANIZATIONS_FIELD_ID.to_string().as_str())
+        //         .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
+        //         .clone(),
+        // )
+        // .unwrap();
+        let departments: Vec<String> = vec![];
+        // let departments: Vec<String> = bson::from_bson(
+        //     person_doc
+        //         .get(PERSONS_DEPARTMENTS_FIELD_ID.to_string())
+        //         .unwrap_or(&bson::to_bson(&vec!["default".to_string()]).unwrap())
+        //         .clone(),
+        // )
+        // .unwrap();
 
         // 构造token
         let groups = match get_account_groups(&account_doc) {
@@ -100,15 +101,12 @@ pub trait HandleLogin {
             None => return Err(Status::data_loss(t!("取得token数据失败"))),
         };
 
-        // 更新登录时间点
-        let now = Utc::now().timestamp();
-        let timestamps = match get_account_login_timestamps(&account_doc) {
-            Some(r) => r.clone(),
-            None => return Err(Status::data_loss(t!("获取时间戳失败"))),
-        };
-        match account::update_account_login_timestamps(&account_id, &timestamps, now).await {
+        match account::update_account_login_timestamps(&account_id).await {
             Ok(_) => (),
-            Err(_e) => return Err(Status::data_loss(t!("更新时间戳失败"))),
+            Err(_e) => {
+                error!("{}: {}", t!("登录时间更新失败"), _e.details());
+                return Err(Status::data_loss(t!("更新登录时间戳失败")))
+            },
         };
 
         info!("{}: {}", t!("帐号成功登录"), phone);
