@@ -7,7 +7,7 @@ use dependencies_sync::log::{error, info};
 use majordomo::get_majordomo;
 use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
-use managers::traits::ManagerTrait;
+use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
 use crate::ids_codes::field_ids::*;

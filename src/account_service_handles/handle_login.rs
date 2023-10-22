@@ -7,7 +7,7 @@ use dependencies_sync::chrono::Utc;
 use manage_define::manage_ids::PERSONS_MANAGE_ID;
 use tonic::{Request, Response, Status};
 
-use managers::traits::ManagerTrait;
+use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
 use crate::account;

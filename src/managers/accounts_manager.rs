@@ -47,17 +47,17 @@ impl ManagerTrait for AccountsManager {
             format!(
                     "{}-{}-{}",
                     t!("管理器不能被注销"),
-                    self.get_manager_id(),
-                    self.get_manager_name()
+                    self.get_id(),
+                    self.get_name()
             ),
         ))
     }
 
-    fn get_manager_id(&self) -> i32 {
+    fn get_id(&self) -> i32 {
         ACCOUNTS_MANAGE_ID
     }
 
-    fn get_manager_name(&self) -> String {
+    fn get_name(&self) -> String {
         "AccountsManager".to_string()
     }
 
@@ -102,7 +102,7 @@ impl ManagerTrait for AccountsManager {
         }
     }
 
-    async fn get_new_entity_id(&self) -> Option<i64> {
+    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
         return None;
     }
 }

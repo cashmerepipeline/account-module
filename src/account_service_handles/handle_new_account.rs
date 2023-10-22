@@ -8,10 +8,10 @@ use dependencies_sync:: tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::cashmere::Name;
 use manage_define::general_field_ids::{
-    COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, ENTITY_REMOVED_FIELD_ID,
+    COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, REMOVED_FIELD_ID,
     ID_FIELD_ID, NAME_MAP_FIELD_ID,
 };
-use managers::traits::ManagerTrait;
+use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
 use crate::ids_codes::field_ids::*;
@@ -85,7 +85,7 @@ pub trait HandleNewAccount {
             COMMENTS_FIELD_ID.to_string(),
             bson::to_bson(&empty_vec).unwrap(),
         );
-        new_account_doc.insert(ENTITY_REMOVED_FIELD_ID.to_string(), false);
+        new_account_doc.insert(REMOVED_FIELD_ID.to_string(), false);
         new_account_doc.insert(ACCOUNTS_PHONE_AREA_CODE_FIELD_ID.to_string(), area_code);
         new_account_doc.insert(ACCOUNTS_PHONE_FIELD_ID.to_string(), phone);
         new_account_doc.insert(ACCOUNTS_PASSWORD_FIELD_ID.to_string(), encrypt_password);

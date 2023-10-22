@@ -5,7 +5,7 @@ use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, ID_FIELD_ID};
 use manage_define::manage_ids::GROUPS_MANAGE_ID;
-use managers::traits::ManagerTrait;
+use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
 use crate::ids_codes::field_ids::*;

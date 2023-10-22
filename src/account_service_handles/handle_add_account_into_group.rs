@@ -5,7 +5,7 @@ use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::GROUPS_MANAGE_ID;
-use managers::traits::ManagerTrait;
+use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
 use crate::ids_codes::field_ids::*;
@@ -49,7 +49,7 @@ pub trait HandleAddAccountIntoGroup {
         // 检查组是否标记为移除
         let group_entity = group_manager.get_entity_by_id(op_group_id).await.unwrap();
         if group_entity
-            .get_bool(ENTITY_REMOVED_FIELD_ID.to_string())
+            .get_bool(REMOVED_FIELD_ID.to_string())
             .unwrap()
         {
             return Err(Status::cancelled("组已经被移除"));
