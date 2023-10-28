@@ -392,7 +392,9 @@ pub mod account_grpc_server {
                             request: tonic::Request<super::LoginRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).login(request).await };
+                            let fut = async move {
+                                <T as AccountGrpc>::login(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -436,7 +438,9 @@ pub mod account_grpc_server {
                             request: tonic::Request<super::NewAccountRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).new_account(request).await };
+                            let fut = async move {
+                                <T as AccountGrpc>::new_account(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -481,7 +485,8 @@ pub mod account_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).add_account_into_group(request).await
+                                <T as AccountGrpc>::add_account_into_group(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -527,7 +532,11 @@ pub mod account_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).remove_account_from_group(request).await
+                                <T as AccountGrpc>::remove_account_from_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -573,7 +582,8 @@ pub mod account_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_own_password(request).await
+                                <T as AccountGrpc>::change_own_password(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -619,7 +629,8 @@ pub mod account_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_account_status(request).await
+                                <T as AccountGrpc>::change_account_status(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -665,7 +676,8 @@ pub mod account_grpc_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).change_account_password(request).await
+                                <T as AccountGrpc>::change_account_password(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
