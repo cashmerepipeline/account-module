@@ -1,8 +1,8 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::doc;
-use dependencies_sync::tonic::{Request, Response, Status};
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::log::{error, info};
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
 use manage_define::field_ids::*;
@@ -10,11 +10,11 @@ use manage_define::general_field_ids::*;
 use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
-use crate::ids_codes::field_ids::*;
-use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
 use crate::account;
 use crate::account::get_account_passwd_hash;
 use crate::account_service_handles::get_account_entity_doc::get_account_entity_doc;
+use crate::ids_codes::field_ids::*;
+use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
 use crate::protocols::{ChangeOwnPasswordRequest, ChangeOwnPasswordResponse};
 
 #[async_trait]
@@ -35,15 +35,13 @@ pub trait HandleChangeOwnPassword {
         let manage_id = ACCOUNTS_MANAGE_ID;
 
         let majordomo_arc = get_majordomo();
-        let manager = majordomo_arc
-            .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(ACCOUNTS_MANAGE_ID).unwrap();
 
         // 帐号存在性检查
         let query_doc = doc! {
             ID_FIELD_ID.to_string():account_id.clone()
         };
-        if !manager.entity_exists(&query_doc).await {
+        if manager.entity_exists(&query_doc).await.is_none() {
             return Err(Status::data_loss(format!(
                 "{}: {}",
                 t!("帐号不存在"),

@@ -4,6 +4,9 @@
 
 id = 10201
 name_map = { zh = "账号", en = "accounts" }
+is_searchable = false
+
+
 
 # 描写，模式
 schema = [

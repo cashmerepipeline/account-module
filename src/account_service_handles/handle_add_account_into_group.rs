@@ -31,27 +31,21 @@ pub trait HandleAddAccountIntoGroup {
         let group_manage_id = GROUPS_MANAGE_ID;
 
         let majordomo_arc = get_majordomo();
-        let account_manager = majordomo_arc
-            .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .unwrap();
+        let account_manager = majordomo_arc.get_manager_by_id(ACCOUNTS_MANAGE_ID).unwrap();
 
-        let group_manager = majordomo_arc
-            .get_manager_by_id(GROUPS_MANAGE_ID)
-            .unwrap();
+        let group_manager = majordomo_arc.get_manager_by_id(GROUPS_MANAGE_ID).unwrap();
 
         // 检查组是否存在
-        if !group_manager
+        if group_manager
             .entity_exists(&doc! {ID_FIELD_ID.to_string():op_group_id.clone()})
             .await
+            .is_none()
         {
             return Err(Status::data_loss(format!("组不存在:{}", op_group_id)));
         }
         // 检查组是否标记为移除
         let group_entity = group_manager.get_entity_by_id(op_group_id).await.unwrap();
-        if group_entity
-            .get_bool(REMOVED_FIELD_ID.to_string())
-            .unwrap()
-        {
+        if group_entity.get_bool(REMOVED_FIELD_ID.to_string()).unwrap() {
             return Err(Status::cancelled("组已经被移除"));
         }
 

@@ -1,16 +1,13 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson;
 use dependencies_sync::bson::doc;
 use dependencies_sync::log::{error, info};
 use dependencies_sync::rust_i18n::{self, t};
-use dependencies_sync:: tonic::{Request, Response, Status};
+use dependencies_sync::tonic::async_trait;
+use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
 use manage_define::cashmere::Name;
-use manage_define::general_field_ids::{
-    COMMENTS_FIELD_ID, DATAS_FIELD_ID, DATAS_REMOVED_FIELD_ID, REMOVED_FIELD_ID,
-    ID_FIELD_ID, NAME_MAP_FIELD_ID,
-};
+use manage_define::general_field_ids::*;
 use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
 
@@ -40,15 +37,13 @@ pub trait HandleNewAccount {
         let new_account_id = format!("{}{}", area_code, phone);
 
         let majordomo_arc = get_majordomo();
-        let manager = majordomo_arc
-            .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(ACCOUNTS_MANAGE_ID).unwrap();
 
         // 帐号存在性检查
         let query_doc = doc! {
             ID_FIELD_ID.to_string():new_account_id.clone()
         };
-        if manager.entity_exists(&query_doc).await {
+        if manager.entity_exists(&query_doc).await.is_some() {
             return Err(Status::already_exists(
                 "手机已经注册，请使用没有注册过的手机号。",
             ));
@@ -74,17 +69,14 @@ pub trait HandleNewAccount {
         );
 
         new_account_doc.insert(
-            DATAS_FIELD_ID.to_string(),
-            bson::to_bson(&empty_vec).unwrap(),
+            DESCRIPTION_FIELD_ID.to_string(),
+            bson::to_bson(&"").unwrap(),
         );
         new_account_doc.insert(
-            DATAS_REMOVED_FIELD_ID.to_string(),
+            TAGS_FIELD_ID.to_string(),
             bson::to_bson(&empty_vec).unwrap(),
         );
-        new_account_doc.insert(
-            COMMENTS_FIELD_ID.to_string(),
-            bson::to_bson(&empty_vec).unwrap(),
-        );
+
         new_account_doc.insert(REMOVED_FIELD_ID.to_string(), false);
         new_account_doc.insert(ACCOUNTS_PHONE_AREA_CODE_FIELD_ID.to_string(), area_code);
         new_account_doc.insert(ACCOUNTS_PHONE_FIELD_ID.to_string(), phone);

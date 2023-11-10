@@ -1,7 +1,7 @@
-use dependencies_sync::tonic::async_trait;
 use dependencies_sync::bson::doc;
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::log::{error, info};
+use dependencies_sync::rust_i18n::{self, t};
+use dependencies_sync::tonic::async_trait;
 use tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
@@ -33,15 +33,13 @@ pub trait HandleChangeAccountPassword {
         let manage_id = ACCOUNTS_MANAGE_ID;
 
         let majordomo_arc = get_majordomo();
-        let manager = majordomo_arc
-            .get_manager_by_id(ACCOUNTS_MANAGE_ID)
-            .unwrap();
+        let manager = majordomo_arc.get_manager_by_id(ACCOUNTS_MANAGE_ID).unwrap();
 
         // 帐号存在性检查
         let query_doc = doc! {
             ID_FIELD_ID.to_string():account_id.clone()
         };
-        if !manager.entity_exists(&query_doc).await {
+        if manager.entity_exists(&query_doc).await.is_none() {
             return Err(Status::data_loss(format!(
                 "{}: {}",
                 t!("帐号不存在"),
