@@ -3,10 +3,9 @@
 #
 
 id = 10201
-name_map = { zh = "账号", en = "accounts" }
+name_map = { zh = "帐号", en = "accounts" }
 is_searchable = false
-
-
+description = "帐号管理"
 
 # 描写，模式
 schema = [
@@ -18,10 +17,10 @@ schema = [
   { data_type = "String", name_map = { zh = "密码", en = "password" }, removed = false },
   # 20004
   # 帐号是否有效等状态
-  { data_type = "Bool", name_map = { zh = "状态", en = "status" }, removed = false },
+  { data_type = "Boolean", name_map = { zh = "状态", en = "status" }, removed = false },
   # 20005
   # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期
-  { data_type = "List", name_map = { zh = "登录时间戳", en = "login_timestamps" }, removed = false },
+  { data_type = "Array", name_map = { zh = "登录时间戳", en = "login_timestamps" }, removed = false },
 ]
 
 
@@ -210,6 +209,17 @@ after_create = { manage = "account", name = "after_create", target_queues = [
 ] }
 10001 = { read_rule = "InVisible", write_rule = "InVisible", read_filters = [
 ], write_filters = [
+] }
+
+[view_rules.schema.1200]
+10000 = { read_rule = "Read", write_rule = "Write", read_filters = [
+  "NoLimit",
+], write_filters = [
+] }
+10001 = { read_rule = "Read", write_rule = "InVisible", read_filters = [
+  "OnlyOwner"
+], write_filters = [
+  "OnlyOwner"
 ] }
 
 [items]

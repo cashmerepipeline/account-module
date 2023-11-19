@@ -13,7 +13,7 @@ fn main() {
         )
         .unwrap();
 
-    manage_define::utils::generate_manage_defines(
+    define_utils::generate_manage_defines(
         &vec!["manage_defines"],
         "src/ids_codes",
         Some("dart_packages/account_module/lib"),

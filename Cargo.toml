@@ -32,9 +32,10 @@ view = { path = "../cashmere_core/view" }
 cash_result = { path = "../cashmere_core/cash_result" }
 configs = { path = "../cashmere_core/configs" }
 service_utils = { path = "../cashmere_core/service_utils" }
+request_utils = {path = "../cashmere_core/request_utils"}
 
 [build-dependencies]
 dependencies_sync = { path = "../cashmere_core/dependencies_sync", features = [
   "tonic-build",
 ] }
-manage_define = { path = "../cashmere_core/manage_define" }
+define_utils = { path = "../cashmere_core/define_utils" }

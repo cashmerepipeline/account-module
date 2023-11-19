@@ -102,7 +102,7 @@ impl ManagerTrait for AccountsManager {
         }
     }
 
-    async fn get_new_entity_id(&self, account_id: &String) -> Option<i64> {
+    async fn get_new_entity_id(&self, account_id: &str) -> Option<i64> {
         return None;
     }
 }

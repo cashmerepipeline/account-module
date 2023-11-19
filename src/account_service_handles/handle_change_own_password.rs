@@ -5,7 +5,6 @@ use dependencies_sync::tonic::async_trait;
 use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
-use manage_define::field_ids::*;
 use manage_define::general_field_ids::*;
 use managers::ManagerTrait;
 use service_utils::types::UnaryResponseResult;
