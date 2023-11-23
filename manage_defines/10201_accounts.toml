@@ -24,19 +24,6 @@ schema = [
 ]
 
 
-[queues]
-event_queue = ["account_event_queue"]
-massage_queue = ["account_message_queue"]
-
-[events]
-before_create = { manage = "account", name = "before_create", target_queues = [
-  "account_event_queue",
-] }
-after_create = { manage = "account", name = "after_create", target_queues = [
-  "account_event_queue",
-] }
-
-
 [view_rules]
 [view_rules.manage]
 10000 = { read_rule = "Read", write_rule = "Write", read_filters = [

@@ -9,7 +9,7 @@ use manage_define::manage_ids::GROUPS_MANAGE_ID;
 use managers::ManagerTrait;
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
-use service_utils::validate_name;
+use validates::validate_name;
 
 use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
 use crate::protocols::{RemoveAccountFromGroupRequest, RemoveAccountFromGroupResponse};

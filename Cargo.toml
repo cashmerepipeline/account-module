@@ -32,6 +32,7 @@ view = { path = "../cashmere_core/view" }
 cash_result = { path = "../cashmere_core/cash_result" }
 configs = { path = "../cashmere_core/configs" }
 service_utils = { path = "../cashmere_core/service_utils" }
+validates = { path = "../cashmere_core/validates" }
 request_utils = {path = "../cashmere_core/request_utils"}
 
 [build-dependencies]
