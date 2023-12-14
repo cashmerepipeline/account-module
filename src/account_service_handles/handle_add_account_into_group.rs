@@ -44,7 +44,7 @@ pub trait HandleAddAccountIntoGroup {
             return Err(Status::data_loss(format!("组不存在:{}", op_group_id)));
         }
         // 检查组是否标记为移除
-        let group_entity = group_manager.get_entity_by_id(op_group_id).await.unwrap();
+        let group_entity = group_manager.get_entity_by_id(op_group_id, &vec![]).await.unwrap();
         if group_entity.get_bool(REMOVED_FIELD_ID.to_string()).unwrap() {
             return Err(Status::cancelled("组已经被移除"));
         }
