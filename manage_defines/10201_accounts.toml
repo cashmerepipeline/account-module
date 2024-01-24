@@ -2,9 +2,8 @@
 # 账户定义
 #
 
-id = 10201
+id = "帐号"
 name_map = { zh = "帐号", en = "accounts" }
-is_searchable = false
 description = "帐号管理"
 
 # 描写，模式

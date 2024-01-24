@@ -1,1 +1,1 @@
-pub const ACCOUNTS_MANAGE_ID:i32 = 10201; 
+pub const ACCOUNTS_MANAGE_ID: &str = "帐号"; 

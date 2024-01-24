@@ -1,1 +1,1 @@
-const int ACCOUNTS_MANAGE_ID = 10201; 
+const String ACCOUNTS_MANAGE_ID ="帐号"; 

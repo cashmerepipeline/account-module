@@ -12,5 +12,5 @@ pub async fn get_account_entity_doc(account_id: &String) -> Result<Document, Ope
         .get_manager_by_id(ACCOUNTS_MANAGE_ID)
         .unwrap();
 
-    manager_arc.get_entity_by_id(account_id, &vec![]).await
+    manager_arc.get_entity_by_id(account_id, &vec![], &vec![]).await
 }

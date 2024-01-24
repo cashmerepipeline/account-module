@@ -38,7 +38,7 @@ pub trait HandleLogin {
                 .get_manager_by_id(ACCOUNTS_MANAGE_ID)
                 .unwrap();
 
-            let account_doc = manager_arc.get_entity_by_id(&account_id, &vec![]).await;
+            let account_doc = manager_arc.get_entity_by_id(&account_id, &vec![], &vec![]).await;
             let account_doc = match account_doc {
                 Ok(d) => d,
                 Err(e) => {
@@ -66,7 +66,7 @@ pub trait HandleLogin {
         }
 
         // 个人信息
-        let person_doc = match entity::get_entity_by_id(&PERSONS_MANAGE_ID.to_string(), &account_id, &vec![]).await {
+        let person_doc = match entity::get_entity_by_id(&PERSONS_MANAGE_ID.to_string(), &account_id, &vec![], &vec![]).await {
             Ok(p) => p,
             Err(_e) => doc! {}, 
         };

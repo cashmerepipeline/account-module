@@ -53,7 +53,7 @@ impl ManagerTrait for AccountsManager {
         ))
     }
 
-    fn get_id(&self) -> i32 {
+    fn get_id(&self) -> &'static str {
         ACCOUNTS_MANAGE_ID
     }
 
@@ -73,7 +73,7 @@ impl ManagerTrait for AccountsManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
@@ -91,7 +91,7 @@ impl ManagerTrait for AccountsManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[]).await {
+                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
                     Ok(r) => r,
                     Err(e) => panic!("{} {}", e.operation(), e.details()),
                 };
