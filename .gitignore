@@ -1,3 +1,4 @@
 /target
 /Cargo.lock
 /.idea
+/dart_packages/account_module/lib/cache_schemas/generate

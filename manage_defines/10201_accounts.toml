@@ -4,7 +4,7 @@
 
 id = "帐号"
 name_map = { zh = "帐号", en = "accounts" }
-description = "帐号管理"
+description = { zh = "帐号管理", en = "accounts management" }
 
 # 描写，模式
 schema = [
