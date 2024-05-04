@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package account_service;
+
+// 邀请好友加入
+message InviteFriendRequest {
+  string phone = 1;
+}
+message InviteFriendResponse {
+  string result = 1;
+}
+
+// 受邀激活帐号
+message ActivateAccountRequest {
+  string phone = 1;
+  string code = 2;
+}
+message ActivateAccountResponse {
+  string result = 1;
+}

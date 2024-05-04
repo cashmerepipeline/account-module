@@ -9,6 +9,10 @@ enum LoginStatus{
 }
 
 enum AccountStatus{
+  // zh: 停用
   AccountStopped = 0;
+  // zh: 启用
   AccountActived = 1;
+  // zh: 等待激活
+  WaitingActivation = 2;
 }

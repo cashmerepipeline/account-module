@@ -31,8 +31,12 @@ impl LoginStatus {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum AccountStatus {
+    /// zh: 停用
     AccountStopped = 0,
+    /// zh: 启用
     AccountActived = 1,
+    /// zh: 等待激活
+    WaitingActivation = 2,
 }
 impl AccountStatus {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -43,6 +47,7 @@ impl AccountStatus {
         match self {
             AccountStatus::AccountStopped => "AccountStopped",
             AccountStatus::AccountActived => "AccountActived",
+            AccountStatus::WaitingActivation => "WaitingActivation",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -50,6 +55,7 @@ impl AccountStatus {
         match value {
             "AccountStopped" => Some(Self::AccountStopped),
             "AccountActived" => Some(Self::AccountActived),
+            "WaitingActivation" => Some(Self::WaitingActivation),
             _ => None,
         }
     }

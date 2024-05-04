@@ -2,26 +2,25 @@
 # 账户定义
 #
 
-id = "帐号"
-name_map = { zh = "帐号", en = "accounts" }
-description = { zh = "帐号管理", en = "accounts management" }
+id = "邀请"
+name_map = { zh = "邀请", en = "invites" }
+description = { zh = "邀请朋友加入", en = "invite friends to join" }
 
 # 描写，模式
 schema = [
   # 2001
-  { data_type = "String", name_map = { zh = "区号", en = "phone_area_code" }, removed = false },
+  { data_type = "String", name_map = { zh = "邀请人", en = "inviter" }, removed = false },
   # 2002
-  { data_type = "String", name_map = { zh = "电话", en = "phone" }, removed = false },
+  { data_type = "String", name_map = { zh = "受邀人", en = "invited" }, removed = false },
   # 2003
-  { data_type = "String", name_map = { zh = "密码", en = "password" }, removed = false },
+  { data_type = "String", name_map = { zh = "邀请码", en = "invite_code" }, removed = false },
   # 2004
-  # 帐号是否有效等状态
-  { data_type = "Boolean", name_map = { zh = "状态", en = "status" }, removed = false },
+  { data_type = "String", name_map = { zh = "邀请时间", en = "invite_time" }, removed = false },
   # 2005
-  # utc timestamp list, 记录登录时间点, 登录则更新记录, 旧的token将过期
-  { data_type = "Array", name_map = { zh = "登录时间戳", en = "login_timestamps" }, removed = false },
+  { data_type = "String", name_map = { zh = "邀请状态", en = "invite_status" }, removed = false },
+  # 2006
+  { data_type = "String", name_map = { zh = "邀请备注", en = "invite_remark" }, removed = false },
 ]
-
 
 [view_rules]
 [view_rules.manage]
