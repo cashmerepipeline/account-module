@@ -14,6 +14,7 @@ import "login.proto";
 import "account.proto";
 import "password.proto";
 import "account_status.proto";
+import "invite.proto";
 
 service AccountGrpc{
   // 登录
@@ -31,4 +32,8 @@ service AccountGrpc{
   // 修改帐号状态
   rpc ChangeAccountStatus(ChangeAccountStatusRequest) returns (ChangeAccountStatusResponse);
   rpc ChangeAccountPassword(ChangeAccountPasswordRequest) returns (ChangeAccountPasswordResponse);
+  
+  // 邀请
+  rpc InviteFriend(InviteFriendRequest) returns (InviteFriendResponse);
+  rpc ActivateInvite(ActivateInviteRequest) returns (ActivateInviteResponse);
 }

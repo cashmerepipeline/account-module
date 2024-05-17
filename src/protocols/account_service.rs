@@ -247,6 +247,43 @@ pub struct ChangeAccountPasswordResponse {
     #[prost(string, tag = "1")]
     pub result: ::prost::alloc::string::String,
 }
+/// 邀请好友加入
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InviteFriendRequest {
+    #[prost(string, tag = "1")]
+    pub phone: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InviteFriendResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
+/// 受邀激活帐号
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ActivateInviteRequest {
+    #[prost(string, tag = "1")]
+    pub area_code: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub phone: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub invite_code: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub password: ::prost::alloc::string::String,
+    /// 带区号
+    #[prost(string, tag = "5")]
+    pub inviter: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "6")]
+    pub nick_name: ::core::option::Option<::manage_define::cashmere::Name>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ActivateInviteResponse {
+    #[prost(string, tag = "1")]
+    pub result: ::prost::alloc::string::String,
+}
 /// Generated server implementations.
 pub mod account_grpc_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
@@ -302,6 +339,21 @@ pub mod account_grpc_server {
             request: tonic::Request<super::ChangeAccountPasswordRequest>,
         ) -> std::result::Result<
             tonic::Response<super::ChangeAccountPasswordResponse>,
+            tonic::Status,
+        >;
+        /// 邀请
+        async fn invite_friend(
+            &self,
+            request: tonic::Request<super::InviteFriendRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InviteFriendResponse>,
+            tonic::Status,
+        >;
+        async fn activate_invite(
+            &self,
+            request: tonic::Request<super::ActivateInviteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ActivateInviteResponse>,
             tonic::Status,
         >;
     }
@@ -697,6 +749,98 @@ pub mod account_grpc_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ChangeAccountPasswordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/InviteFriend" => {
+                    #[allow(non_camel_case_types)]
+                    struct InviteFriendSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::InviteFriendRequest>
+                    for InviteFriendSvc<T> {
+                        type Response = super::InviteFriendResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InviteFriendRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccountGrpc>::invite_friend(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = InviteFriendSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/account_service.AccountGrpc/ActivateInvite" => {
+                    #[allow(non_camel_case_types)]
+                    struct ActivateInviteSvc<T: AccountGrpc>(pub Arc<T>);
+                    impl<
+                        T: AccountGrpc,
+                    > tonic::server::UnaryService<super::ActivateInviteRequest>
+                    for ActivateInviteSvc<T> {
+                        type Response = super::ActivateInviteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ActivateInviteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccountGrpc>::activate_invite(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ActivateInviteSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

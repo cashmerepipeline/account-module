@@ -4,7 +4,7 @@ use service_utils::types::UnaryResponseResult;
 use crate::protocols::account_grpc_server::AccountGrpc;
 use crate::protocols::*;
 
-use crate::account_service_handles::*;
+use crate::service_handles::*;
 
 /// 账号服务
 #[derive(Default)]
@@ -17,6 +17,8 @@ impl HandleRemoveAccountFromGroup for AccountServer {}
 impl HandleChangeOwnPassword for AccountServer {}
 impl HandleChangeAccountStatus for AccountServer {}
 impl HandleChangeAccountPassword for AccountServer {}
+impl HandleActivateInvite for AccountServer {}
+impl HandleInviteFriend for AccountServer {}
 
 #[tonic::async_trait]
 impl AccountGrpc for AccountServer {
@@ -64,5 +66,19 @@ impl AccountGrpc for AccountServer {
         request: Request<ChangeAccountPasswordRequest>,
     ) -> Result<Response<ChangeAccountPasswordResponse>, Status> {
         self.handle_change_account_password(request).await
+    }
+    
+    async fn invite_friend(
+        &self,
+        request: Request<InviteFriendRequest>,
+    ) -> Result<Response<InviteFriendResponse>, Status> {
+        self.handle_invite_friend(request).await
+    }
+    
+    async fn activate_invite(
+        &self,
+        request: Request<ActivateInviteRequest>,
+    ) -> Result<Response<ActivateInviteResponse>, Status> {
+        self.handle_activate_invite(request).await
     }
 }

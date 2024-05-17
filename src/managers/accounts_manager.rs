@@ -9,12 +9,13 @@ Modified: !date!
 use std::sync::Arc;
 
 // use log::{error, info, warn};
-use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::bson;
 use dependencies_sync::bson::Document;
 use dependencies_sync::parking_lot::RwLock;
+use dependencies_sync::rust_i18n::{self, t};
 use dependencies_sync::tonic::async_trait;
 
+use managers::entity_cache_map::EntityCacheInterface;
 use managers::{Manager, ManagerInner, ManagerTrait};
 
 use cash_core::{manage_from_document, Manage};
@@ -45,10 +46,10 @@ impl ManagerTrait for AccountsManager {
         Err(operation_failed(
             "unregister",
             format!(
-                    "{}-{}-{}",
-                    t!("管理器不能被注销"),
-                    self.get_id(),
-                    self.get_name()
+                "{}-{}-{}",
+                t!("管理器不能被注销"),
+                self.get_id(),
+                self.get_name()
             ),
         ))
     }
@@ -61,10 +62,6 @@ impl ManagerTrait for AccountsManager {
         "AccountsManager".to_string()
     }
 
-    fn has_cache(&self) -> bool {
-        false
-    }
-
     // declare_default_get_manage!(ACCOUNTS_MANAGER, ACCOUNTS_MANAGE_ID);
     async fn get_manage(&self) -> Arc<RwLock<Manage>> {
         unsafe {
@@ -73,10 +70,11 @@ impl ManagerTrait for AccountsManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
                 let manage: Manage = manage_from_document(m_doc).unwrap();
                 ACCOUNTS_MANAGE.replace(Arc::new(RwLock::new(manage)));
                 ACCOUNTS_MANAGE.clone().unwrap()
@@ -91,10 +89,11 @@ impl ManagerTrait for AccountsManager {
             } else {
                 let collection_name = MANAGES_MANAGE_ID.to_string();
                 let id_str = ACCOUNTS_MANAGE_ID.to_string();
-                let m_doc = match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
-                    Ok(r) => r,
-                    Err(e) => panic!("{} {}", e.operation(), e.details()),
-                };
+                let m_doc =
+                    match entity::get_entity_by_id(&collection_name, &id_str, &[], &[]).await {
+                        Ok(r) => r,
+                        Err(e) => panic!("{} {}", e.operation(), e.details()),
+                    };
 
                 ACCOUNTS_MANAGE_DOCUMENT.replace(Arc::new(RwLock::new(m_doc)));
                 ACCOUNTS_MANAGE_DOCUMENT.clone().unwrap()
@@ -106,3 +105,5 @@ impl ManagerTrait for AccountsManager {
         return None;
     }
 }
+
+impl EntityCacheInterface for AccountsManager {}

@@ -7,6 +7,8 @@ Modified: !date!
 */
 
 pub use update_account_login_timestamps::*;
+
+pub use add_new_account::*;
 pub use account_status::*;
 pub use login_status::*;
 pub use get_account_by_id::*;
@@ -14,8 +16,11 @@ pub use get_account_passwd_hash::*;
 pub use get_account_groups::*;
 pub use is_account_stopped::*;
 pub use get_account_login_timestamps::*;
+pub use validate_is_admin::*;
 
 pub mod group;
+
+mod add_new_account;
 mod update_account_login_timestamps;
 mod account_status;
 mod login_status;
@@ -25,10 +30,4 @@ mod get_account_groups;
 mod is_account_stopped;
 mod get_account_login_timestamps;
 
-// pub fn get_account_manage_view_rules(doc: &Document) -> Option<Vec<String>>{
-//     let view_rules:Vec<String> = match doc.get_array("view_rules") {
-//         Ok(ss) => ss.iter().map(|x| x.as_i64().unwrap()).collect(),
-//         Err(_e) => vec![]
-//     };
-//     Some(view_rules)
-// }
+mod validate_is_admin;
