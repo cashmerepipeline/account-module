@@ -6,7 +6,7 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
 use manage_define::general_field_ids::*;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 use service_utils::types::UnaryResponseResult;
 use validates::validate_entity_id;
 

@@ -1,7 +1,7 @@
 use dependencies_sync::bson::{doc, Document};
 
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 
 use crate::ids_codes::{field_ids::*, manage_ids::INVITES_MANAGE_ID};
 

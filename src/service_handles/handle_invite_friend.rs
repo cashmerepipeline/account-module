@@ -10,7 +10,7 @@ use manage_define::cashmere::Name;
 use manage_define::general_field_ids::*;
 use manage_define::manage_ids::GROUPS_MANAGE_ID;
 use managers::utils::make_new_entity_document;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 use service_utils::types::UnaryResponseResult;
 use validates::{validate_entity_id, validate_role_group};
 

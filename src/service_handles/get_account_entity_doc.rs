@@ -3,7 +3,7 @@ use dependencies_sync::bson::Document;
 use cash_result::OperationResult;
 
 use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 
 // 取得账户密钥加密串
 pub async fn get_account_entity_doc(account_id: &String) -> Result<Document, OperationResult> {

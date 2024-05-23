@@ -1,7 +1,8 @@
 use configs::ConfigTrait;
 use dependencies_sync::bson::Document;
 use managers::Manager;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
+
 
 use crate::ids_codes::field_ids::INVITES_INVITER_FIELD_ID;
 

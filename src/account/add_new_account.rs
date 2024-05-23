@@ -5,7 +5,7 @@ use dependencies_sync::{
     rust_i18n::{self, t},
 };
 use majordomo::get_majordomo;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 
 use tonic::{Response, Status};
 
