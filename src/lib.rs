@@ -11,7 +11,9 @@ use dependencies_sync::rust_i18n::{self, i18n, t};
 i18n!("locales");
 
 mod account;
-mod account_service_handles;
+mod service_handles;
+mod invite;
+
 pub mod protocols;
 pub mod managers;
 pub mod account_server;

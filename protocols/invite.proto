@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package account_service;
+
+import "name.proto";
+
+// 邀请好友加入
+message InviteFriendRequest {
+  string phone = 1;
+}
+message InviteFriendResponse {
+  string result = 1;
+}
+
+// 受邀激活帐号
+message ActivateInviteRequest {
+  string area_code = 1;
+  string phone = 2;
+  string invite_code = 3;
+  string password = 4;
+  // 带区号
+  string inviter = 5;
+  .cashmere.Name nick_name = 6;
+}
+message ActivateInviteResponse {
+  string result = 1;
+}

@@ -6,12 +6,12 @@ use dependencies_sync::tonic::{Request, Response, Status};
 
 use majordomo::get_majordomo;
 use manage_define::general_field_ids::*;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 use service_utils::types::UnaryResponseResult;
 
 use crate::account;
 use crate::account::get_account_passwd_hash;
-use crate::account_service_handles::get_account_entity_doc::get_account_entity_doc;
+use crate::service_handles::get_account_entity_doc::get_account_entity_doc;
 use crate::ids_codes::field_ids::*;
 use crate::ids_codes::manage_ids::ACCOUNTS_MANAGE_ID;
 use crate::protocols::{ChangeOwnPasswordRequest, ChangeOwnPasswordResponse};

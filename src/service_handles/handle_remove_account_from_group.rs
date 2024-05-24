@@ -6,7 +6,7 @@ use tonic::{Request, Response, Status};
 use majordomo::get_majordomo;
 use manage_define::general_field_ids::{GROUPS_FIELD_ID, ID_FIELD_ID};
 use manage_define::manage_ids::GROUPS_MANAGE_ID;
-use managers::ManagerTrait;
+use managers::entity_interface::EntityInterface;
 use request_utils::request_account_context;
 use service_utils::types::UnaryResponseResult;
 use validates::validate_name;
