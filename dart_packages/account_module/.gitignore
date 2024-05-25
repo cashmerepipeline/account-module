@@ -28,3 +28,11 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+.idea/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/*generated*
+ios/Flutter/flutter_export_environment.sh
+linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+linux/flutter/ephemeral/.plugin_symlinks/platform_device_id_linux
+macos/Flutter/ephemeral/flutter_export_environment.sh
